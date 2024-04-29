@@ -1,0 +1,60 @@
+/* src/index.less */
+
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:wght@100&family=Zhi+Mang+Xing&display=swap');
+
+.container {
+  background-image: url(../../assets/bg/bg_login.png);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  background-size: cover;
+  .loginCard {
+    margin-top: 10vh;
+    height: 50%;
+    width: 50%;
+    padding: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    .bottomText {
+      font-family: 'Victor Mono', monospace;
+      font-family: 'Zhi Mang Xing', cursive;
+      font-size: large;
+      color: rgb(12, 39, 173);
+      float: right;
+    }
+
+    .loginTitle {
+      text-align: center;
+      margin-bottom: 24px;
+      font-family: 'Victor Mono', monospace;
+
+      img {
+        width: 3vw;
+      }
+    }
+
+    .loginForm {
+      .login-button {
+        width: 100%;
+      }
+      .loginFormItem{
+        position: relative;
+        top: 1.7rem;
+        left: 0.8rem;
+        z-index: 999;
+      }
+      .roleSelect{
+        :global{
+          .ant-select-selector{
+          padding-left: 1.8rem;
+        }
+        }
+        
+        
+      }
+    }
+  }
+}

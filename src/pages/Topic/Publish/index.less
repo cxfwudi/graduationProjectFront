@@ -1,0 +1,63 @@
+.container{
+  width: 60vw;
+  margin: 0 auto;
+  img{
+    width:60vw;
+    height: 20vh;
+    display: block;
+  }
+  .middleTip{
+    padding-top: 2vh;
+    span:nth-child(odd){
+      display: block;
+      width: 10vw;
+      text-align: center;
+      font-weight: bold;
+      line-height: 4vh;
+      height: 4vh;
+      background-color: aliceblue;
+      color: black;
+    }
+    span:nth-child(even){
+      float: right;
+      position: relative;
+      bottom: 3vh;
+      color: aliceblue;
+    }
+  }
+  .line{
+    width: 60vw;
+    height: 2px;
+    background-color: aliceblue;
+  }
+  .cardContainer{
+    display: flex;
+    margin-top: 2vh;
+    width: 60vw;
+    min-height: 65vh;
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+    .cardLeft{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 40%;
+      margin-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-right: 2px black;
+      .titleInput{
+        width: 50%;
+        margin: 10px 0 10px 0;
+      }
+      .limitSelect{
+        margin: 0 0 10px 0;
+      }
+    }
+    .cardRight{
+      margin-top: 10px;
+      padding-right: 10px;
+      width:60%;
+    }
+  }
+}

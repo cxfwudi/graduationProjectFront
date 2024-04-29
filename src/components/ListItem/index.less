@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:wght@100&family=Zhi+Mang+Xing&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Long+Cang&display=swap');
+.cardContainer{
+  background-color: rgb(250, 250, 250);
+  width:60vw;
+  border-radius: 4px;
+  font-family: 'Long Cang', cursive;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 10px 0 5px 0;
+  .itemInfo{
+    padding-left: 10px;
+    font-size: 1vw;
+    opacity: 0.8;
+    span{
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  .itemContent{
+    padding-left: 10px;
+    p:nth-child(odd){
+      font-size: 1.5vw;
+      margin: 0;
+      font-weight: bold;
+    }
+    p:nth-child(even){
+      font-size: 1vw;
+      opacity: 0.8;
+    }
+    .operate{
+      float: right;
+      position: relative;
+      bottom: 4vh;
+      right: 2vh;
+      span{
+        font-weight: bold;
+        cursor: pointer;
+        padding-right: 5px;
+        color: blue;
+      }
+      span:nth-child(even){
+        color:red
+      }
+    }
+  }
+}

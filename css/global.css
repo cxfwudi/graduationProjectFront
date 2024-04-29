@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+main.ant-layout-content.ant-pro-layout-content.css-dev-only-do-not-override-8vhhqp.ant-pro-layout-has-header.css-dev-only-do-not-override-1jr9qlj {
+  padding: 0;
+}
+.ant-layout .ant-pro-layout-container .ant-layout-content {
+  background-image: url(assets//bg/all_container.jpg) !important;
+  background-attachment: fixed;
+  padding-block: 0;
+  padding-inline: 0;
+}
+.root {
+  /* 修改滚动条的宽度和颜色 */
+  /* 修改滚动条滑块的颜色 */
+  /* 隐藏滚动条的轨道（滚动条背景） */
+}
+.root ::-webkit-scrollbar {
+  width: 1px;
+  /* 滚动条宽度 */
+}
+.root ::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* 滑块背景颜色 */
+  border-radius: 4px;
+  /* 滑块圆角 */
+}
+.root ::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* 轨道背景颜色 */
+}

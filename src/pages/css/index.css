@@ -1,0 +1,64 @@
+/* src/index.less */
+@font-face {
+  font-family: 'Victor Mono';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/victormono/v3/Yq6H-LGQWyfv-LGy7lEO09xRn-T81AVB_tCyO8_NhA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Victor Mono';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/victormono/v3/Yq6H-LGQWyfv-LGy7lEO09xRn-T81AVB_tCyO8_NhA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/zhimangxing/v17/f0Xw0ey79sErYFtWQ9a2rq-g0ac.ttf) format('truetype');
+}
+.container {
+  background-image: url(../../assets/bg/bg_login.png);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-size: cover;
+}
+.container .loginCard {
+  margin-top: 10vh;
+  height: 50%;
+  width: 50%;
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.container .loginCard .bottomText {
+  font-family: 'Victor Mono', monospace;
+  font-family: 'Zhi Mang Xing', cursive;
+  font-size: large;
+  color: #0c27ad;
+  float: right;
+}
+.container .loginCard .loginTitle {
+  text-align: center;
+  margin-bottom: 24px;
+  font-family: 'Victor Mono', monospace;
+}
+.container .loginCard .loginTitle img {
+  width: 3vw;
+}
+.container .loginCard .loginForm .login-button {
+  width: 100%;
+}
+.container .loginCard .loginForm .loginFormItem {
+  position: relative;
+  top: 1.7rem;
+  left: 0.8rem;
+  z-index: 999;
+}
+.container .loginCard .loginForm .roleSelect :global .ant-select-selector {
+  padding-left: 1.8rem;
+}

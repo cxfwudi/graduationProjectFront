@@ -1,0 +1,136 @@
+/* src/index.less */
+
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:wght@100&family=Zhi+Mang+Xing&display=swap');
+
+.container {
+  background-image: url(../../assets/bg/bg_login.png);
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+
+  .topicRender {
+    width: 50%;
+
+    .topicList {
+      .topicImg {
+        width: 50%;
+        height: 30vh;
+        padding: 1vh 1vw 1vh 1vw;
+        display: inline;
+        position: relative;
+
+        img {
+          width: 45%;
+          height: 30vh;
+          cursor: pointer;
+        }
+
+        .toolTip {
+          visibility: hidden;
+          background-color: rgb(13, 13, 13);
+          position: absolute;
+          right: 50%;
+          top: 50%;
+          color: aliceblue;
+          padding: 2px;
+          font-size: .8vw;
+        }
+
+        img:hover {
+          // visibility: visible;
+          opacity: 0.5;
+          transition: opacity 0.3s ease;
+          /* 添加渐变过渡效果 */
+        }
+      }
+
+      .topicImg:hover .toolTip {
+        visibility: visible;
+      }
+    }
+  }
+
+  .loginCard {
+    margin-top: 1vh;
+    height: 60%;
+    width: 50%;
+    padding: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+
+
+    .avatarLabel {
+      position: relative;
+    }
+
+    .updateBtn {
+      display: block;
+    }
+
+    .upload {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+
+    .bottomText {
+      font-family: 'Victor Mono', monospace;
+      font-family: 'Zhi Mang Xing', cursive;
+      font-size: large;
+      color: rgb(12, 39, 173);
+      float: right;
+      position: relative;
+      left: 18vw;
+    }
+
+    .loginTitle {
+      text-align: center;
+      margin-bottom: 24px;
+      font-family: 'Victor Mono', monospace;
+
+      img {
+        width: 3vw;
+      }
+    }
+
+    .avatarContainer {
+      position: relative;
+      top: 5vh;
+
+      .avatarUplodaBtn {
+        padding-top: 1vh;
+      }
+    }
+
+    .loginForm {
+      position: relative;
+      right: 5vw;
+      bottom: 10vh;
+
+      :global {
+        .ant-form-item {
+          width: 51%;
+          float: right;
+
+          .ant-row {
+            .ant-col {
+              .ant-form-item-control-input {
+                .ant-form-item-control-input-content {
+                  button {
+                    float: right;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

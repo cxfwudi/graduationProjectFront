@@ -1,0 +1,73 @@
+.container {
+  width: 60vw;
+  // height: 100vh;
+  margin: 0 auto;
+  min-height: 93vh;
+
+  :global {
+    .ant-pagination {
+      position: absolute;
+      right: 7vw;
+      bottom: 2vh;
+      .ant-pagination-item-active{
+        background-color: #1643e829;
+        border-color: #1677ff;
+      }
+      .ant-pagination-item{
+        a{
+          color: white;
+        }
+      }
+      .ant-pagination-prev{
+        .ant-pagination-item-link{
+          .anticon{
+            svg{
+              color: white;
+            }
+          }
+        }
+      }
+      .ant-pagination-next{
+        .ant-pagination-item-link{
+          .anticon{
+            svg{
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  img {
+    width: 60vw;
+    height: 20vh;
+    display: block;
+  }
+
+  .filterText {
+    margin: 1vh 0 1vh 0;
+
+    .articleListText {
+      color: white;
+      background-color: black;
+      width: 8vw;
+      height: 4vh;
+      line-height: 4vh;
+      text-align: center;
+      font-weight: bold;
+      display: block;
+    }
+
+    .filter {
+      float: right;
+      position: relative;
+      bottom: 4vh;
+    }
+
+    .fenpian {
+      position: relative;
+      bottom: 0;
+    }
+  }
+}
