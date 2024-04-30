@@ -26,6 +26,7 @@ export default () => {
       if (permCode === 200) {
         localStorage.setItem('username', username);
         localStorage.setItem('wusiToken', data.token);
+        localStorage.setItem('userRole',data.role)
         localStorage.setItem('blog_has_login', 'has');
         localStorage.setItem('userPerm',userPerm.toString());
         await setInitialState((s) => {
@@ -33,6 +34,7 @@ export default () => {
             ...s,
             username,
             token: data.token,
+            role: data.role,
             hasLogin: 'has',
             userPerm: userPerm
           }

@@ -14,7 +14,8 @@ export async function getInitialState(): Promise<{
   username?:string | null,
   token?: string | null,
   hasLogin?:string | null,
-  userPerm?:string[] | null
+  userPerm?:string[] | null,
+  role:string | null
 }> {
   const hasLogin = localStorage.getItem('blog_has_login');
   if (history.location.pathname === '/login') {
@@ -23,19 +24,23 @@ export async function getInitialState(): Promise<{
       settings,
       username: '',
       token: '',
-      hasLogin:hasLogin
+      role:'',
+      hasLogin:hasLogin,
+      userPerm:[]
     }
   } else {
     console.log("出现")
     const username = localStorage.getItem('username');
     const token = localStorage.getItem('wusiToken');
-    const userPerm = localStorage.getItem('userPerm')
+    const userPerm = localStorage.getItem('userPerm');
+    const role = localStorage.getItem('userRole')
     return {
       settings,
       username,
       token,
       hasLogin:hasLogin,
-      userPerm:userPerm?.split(',')
+      userPerm:userPerm?.split(','),
+      role:role
     }
   }
 

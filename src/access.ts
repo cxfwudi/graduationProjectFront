@@ -1,5 +1,6 @@
 export default (initialState: any) => {
-  const userPermissions = initialState.userPerm;
+  console.log(initialState)
+  const userPermissions = initialState.userPerm === undefined ?[]:initialState.userPerm;
   console.log(userPermissions)
   const judgeCanRead = ()=>{
     return userPermissions.includes(0) && !userPermissions.includes(4);

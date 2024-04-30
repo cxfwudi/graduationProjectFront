@@ -6,7 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useModel, history, useLocation } from '@umijs/max';
 import { ListTopics, currentUser, updateUserInfo, uploadAvatar as fetchUploadAvatar } from '@/services/api';
 import { unicodeToStr } from '@/utils';
+import { useAccess, Access } from 'umi';
 const { Title } = Typography;
+
 interface ListTopicData {
   id: string,
   title: string,
@@ -32,6 +34,7 @@ export default () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const location = useLocation();
   const username = location.pathname.split('/')[2];
+  const access = useAccess();
   useEffect(()=>{
     if(initialState?.hasLogin === 'no-has'){
       history.push('/404')
@@ -111,6 +114,14 @@ export default () => {
     }
 
   }
+  const gotoTopicDetail = (author: string, topicId: string) => {
+    if (!access.canRead()) {
+      notification.error({
+        message: '您暂时没有权限阅读，请联系管理员'
+      })
+    }
+    history.push(`/topic/${author}/${topicId}`)
+  }
   const onPageChange = (page: number) => {
     setPageIndex(page)
   }
@@ -172,7 +183,7 @@ export default () => {
                     {item.photos[0] ? `http://www.wusi.fun/media/${item.photos[0]}`
                       : require('@/assets/no-img.jpg')
                     } alt="文章图片"
-                    onClick={()=>{history.push(`/topic/${item.author}/${item.id}`)}}
+                    onClick={()=>{gotoTopicDetail(item.author,item.id)}}
                   />
                   <span className={styles.toolTip}>点击查看详细文章</span>
                 </div>

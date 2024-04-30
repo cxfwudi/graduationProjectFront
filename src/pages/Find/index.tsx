@@ -7,6 +7,7 @@ import { unicodeToStr } from "@/utils";
 import { useScroll } from "@reactuses/core";
 import Loading from 'react-loading';
 import { history } from "@umijs/max";
+import { useAccess, Access } from 'umi';
 
 const { Meta } = Card;
 
@@ -18,6 +19,8 @@ export default () => {
   const [isLoading, setIsLoading] = useState(true);
   const [allLoading, setAllLoading] = useState(true);
   const [x, y, isScrolling, arrivedState, directions] = useScroll(elementRef);
+  const access = useAccess();
+
   const { bottom } = useMemo(
     () => arrivedState,
     [arrivedState],
@@ -61,9 +64,19 @@ export default () => {
     fetchArticlesData(`${pageIndex}`);
     setPageIndex(pageIndex + 5);
   }, [])
+  const gotoTopicDetail = (author: string, topicId: string) => {
+    if (!access.canRead()) {
+      notification.error({
+        message: '您暂时没有权限阅读，请联系管理员'
+      })
+    }else{
+      history.push(`/topic/${author}/${topicId}`)
+    }
+    
+  }
   const topicTitle = (title: string, username: string, t_id: string) => {
     return (
-      <span onClick={() => { history.push(`/topic/${username}/${t_id}`) }}>
+      <span onClick={()=>{gotoTopicDetail(username,t_id)}}>
         {title}
       </span>
     )

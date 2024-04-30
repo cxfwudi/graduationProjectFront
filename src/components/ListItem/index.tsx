@@ -2,6 +2,7 @@ import { FieldTimeOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, notification } from 'antd';
 import { history, useModel } from '@umijs/max';
 import { deleteTopic } from '@/services/api';
+import { useAccess, Access } from 'umi';
 import styles from './index.less'
 interface ListTopicData {
   id: string,
@@ -12,23 +13,44 @@ interface ListTopicData {
   author: string
 }
 
-export default (props: { params: ListTopicData,deleteSuccess:(carryDelete:boolean)=>void }) => {
+export default (props: { params: ListTopicData, deleteSuccess: (carryDelete: boolean) => void }) => {
   const { params } = props;
   const { initialState, setInitialState } = useModel('@@initialState');
-  const deleteTop = async (t_id:string) => {
-    if(initialState?.username){
-      const {code} = await deleteTopic(initialState.username,t_id);
-      if(code === 200) {
+  const access = useAccess();
+  const deleteTop = async (t_id: string) => {
+    if (initialState?.username) {
+      const { code } = await deleteTopic(initialState.username, t_id);
+      if (code === 200) {
         notification.success({
-          message:'删除成功'
+          message: '删除成功'
         })
         props.deleteSuccess(true);
-      }else{
+      } else {
         notification.error({
-          message:'呃，好像哪里出了问题'
+          message: '呃，好像哪里出了问题'
         })
       }
     }
+  }
+  const gotoTopicDetail = (author: string, topicId: string) => {
+    if (!access.canRead()) {
+      notification.error({
+        message: '您暂时没有权限阅读，请联系管理员'
+      })
+    }else{
+      history.push(`/topic/${author}/${topicId}`)
+    }
+    
+  }
+  const gotoEditTopic = (topicId:string)=>{
+    if(!access.canEdit()){
+      notification.error({
+        message: '您暂时没有权限编辑，请联系管理员'
+      })
+    }else{
+      history.push(`/topic/update/${params.id}`)
+    }
+    
   }
   return (
     <div className={styles.cardContainer}>
@@ -40,11 +62,11 @@ export default (props: { params: ListTopicData,deleteSuccess:(carryDelete:boolea
         </span>
       </div>
       <div className={styles.itemContent}>
-        <p onClick={()=>{history.push(`/topic/${params.author}/${params.id}`)}} style={{cursor:'pointer'}}>{params.title}</p>
+        <p onClick={() => { gotoTopicDetail(params.author, params.id) }} style={{ cursor: 'pointer' }}>{params.title}</p>
         <p>{params.introduce}</p>
         <div className={styles.operate}>
-          <span onClick={() => { history.push(`/topic/update/${params.id}`) }}>编辑</span>
-          <span onClick={()=>{deleteTop(params.id)}}>删除</span>
+          <span onClick={() => { gotoEditTopic(params.id) }}>编辑</span>
+          <span onClick={() => { deleteTop(params.id) }}>删除</span>
         </div>
       </div>
     </div>

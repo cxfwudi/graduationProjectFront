@@ -40,6 +40,7 @@ export default () => {
             async () => {
               localStorage.removeItem('wusiToken');
               localStorage.removeItem('username');
+              localStorage.removeItem('userPerm');
               localStorage.setItem('blog_has_login', 'no-has');
               await setInitialState((s) => {
                 return {
@@ -51,6 +52,7 @@ export default () => {
               notification.error({
                 message: '退出成功！'
               })
+              history.push('/login');
             }}>
             退出
           </div>
@@ -70,7 +72,7 @@ export default () => {
 
   const avatarControl = () => {
     if (initialState?.hasLogin === 'no-has' || initialState?.hasLogin === null) {
-      avatarUrlTemp = '/avatar/刘能.jpg';
+      avatarUrlTemp = 'avatar/刘能.jpg';
       setAvatarUrl(avatarUrlTemp)
     } else {
       getUserAvatar();

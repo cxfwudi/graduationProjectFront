@@ -1,17 +1,19 @@
 import { useModel } from "@umijs/max";
 import styles from './index.less'
-import {Tooltip, Card, Space, Row, Col, Avatar } from "antd";
+import { Tooltip, Card, Space, Row, Col, Avatar } from "antd";
 import { WechatOutlined, UnorderedListOutlined, QqOutlined, RedditOutlined, InstagramOutlined } from "@ant-design/icons";
 import { randomTopics } from '../../services/api';
 import { useEffect, useState } from "react";
 import { unicodeToStr } from "@/utils";
 import { history } from "@umijs/max";
+import { notification } from 'antd';
+import { useAccess, Access } from 'umi';
 
 const { Meta } = Card;
 export default () => {
   const [topicsData, setTopicsData] = useState<API.TopicData[]>([]);
   const { initialState, setInitialState } = useModel('@@initialState');
-  console.log(initialState)
+  const access = useAccess();
   const cardTitle = (type: string) => {
     if (type === 'content') {
       return (
@@ -33,9 +35,9 @@ export default () => {
       )
     }
   }
-  
+
   useEffect(() => {
-    if(initialState?.hasLogin === 'no-has' || localStorage.getItem('blog_has_login') != 'has') history.push('/login');
+    if (initialState?.hasLogin === 'no-has' || localStorage.getItem('blog_has_login') != 'has' || initialState == undefined) history.push('/login');
     const fetchRandomsTopics = async () => {
       const { data } = await randomTopics();
       const { topics } = data;
@@ -44,13 +46,24 @@ export default () => {
     fetchRandomsTopics();
   }, []);
   const picture_22 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const topicTitle = (title:string,username:string,t_id:string)=>{
+  const gotoTopicDetail = (author: string, topicId: string) => {
+    if (!access.canRead()) {
+      notification.error({
+        message: '您暂时没有权限阅读，请联系管理员'
+      })
+    }else{
+      history.push(`/topic/${author}/${topicId}`)
+    }
+    
+  }
+  const topicTitle = (title: string, username: string, t_id: string) => {
     return (
-      <span onClick={()=>{history.push(`/topic/${username}/${t_id}`)}} style={{cursor:'pointer'}}>
+      <span onClick={() => { gotoTopicDetail(username, t_id) }} style={{ cursor: 'pointer' }}>
         {title}
       </span>
     )
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.introd}>
@@ -87,7 +100,7 @@ export default () => {
               picture_22.map((item, index) => {
                 return (
                   <Col span={8} key={index}>
-                    
+
                     <Card
                       className={styles.photo_card_item}
                       cover={
@@ -127,15 +140,15 @@ export default () => {
                       }
                     >
                       <Meta
-                        title={topicTitle(item.title,item.author,String(item.id))}
+                        title={topicTitle(item.title, item.author, String(item.id))}
                         description={item.introduce}
                         avatar={
-                        <Avatar 
-                        src={`http://www.wusi.fun/media/${unicodeToStr(item.author_avatar)}`}
-                        onClick={()=>{history.push(`/userinfo/${item.author}`)}} 
-                        style={{cursor:'pointer'}}
-                        />
-                      }
+                          <Avatar
+                            src={`http://www.wusi.fun/media/${unicodeToStr(item.author_avatar)}`}
+                            onClick={() => { history.push(`/userinfo/${item.author}`) }}
+                            style={{ cursor: 'pointer' }}
+                          />
+                        }
                       />
                     </Card>
                   </Col>
@@ -147,9 +160,9 @@ export default () => {
       </Space>
       <div className={styles.beian}>
         Copyright © 2022
-        <a href="http://www.wusi.fun" style={{textDecorationLine:'none',color:'black'}}>钨丝个人博客</a>
+        <a href="http://www.wusi.fun" style={{ textDecorationLine: 'none', color: 'black' }}>钨丝个人博客</a>
         All Rights Reserved |
-        备案号：<a href="https://beian.miit.gov.cn" style={{textDecorationLine:'none',color:'black'}}>黑ICP备2022009410号</a>
+        备案号：<a href="https://beian.miit.gov.cn" style={{ textDecorationLine: 'none', color: 'black' }}>黑ICP备2022009410号</a>
       </div>
     </div>
   )

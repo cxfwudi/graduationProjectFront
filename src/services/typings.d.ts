@@ -15,7 +15,8 @@ declare namespace API {
     code:number,
     username:string,
     data:{
-      token:string
+      token:string,
+      role:string
     }
   }
   interface registerData{
@@ -99,5 +100,15 @@ declare namespace API {
   interface userPermissions{
     code:number,
     data:[]
+  }
+  interface signleUserPerm{
+    username:string,
+    userAvatar:string,
+    permList:[]
+  }
+  interface allUserPerm{
+    code:number,
+    total:number
+    data:signleUserPerm[]
   }
 }

@@ -1,12 +1,14 @@
 import { Button, Avatar, Modal, Upload, Cascader, Input, notification } from 'antd';
 import { useState, useEffect, useRef } from 'react';
 import { useModel, useLocation } from "@umijs/max";
-import { UserOutlined, FieldTimeOutlined,CloseOutlined } from '@ant-design/icons';
-import { getTopicDetail, currentUser as getAuthorAvatar,submitTopicComment,submitTopicReply } from '@/services/api';
+import { UserOutlined, FieldTimeOutlined, CloseOutlined } from '@ant-design/icons';
+import { getTopicDetail, currentUser as getAuthorAvatar, submitTopicComment, submitTopicReply } from '@/services/api';
 import { unicodeToStr } from '@/utils';
 import { history } from '@umijs/max';
 import styles from './index.less';
+import { useAccess, Access } from 'umi';
 import ReactHtmlParser from 'react-html-parser';
+
 interface replyData {
   id: number,
   publisher: string,
@@ -52,9 +54,9 @@ export default () => {
   const [comment, setComment] = useState('');
   const [reply, setReply] = useState('');
   const [modalControll, setModalControl] = useState<number>(-1)
-
+  const access = useAccess();
   const t_id: string = location.pathname.split('/')[3];
-  const username:string = location.pathname.split('/')[2];
+  const username: string = location.pathname.split('/')[2];
   useEffect(() => {
     const fetchTopicInfo = async () => {
       if (initialState?.username) {
@@ -69,22 +71,34 @@ export default () => {
     fetchTopicInfo();
   }, [])
   const sendCommit = async () => {
-    if(comment === '') notification.error({message:'不能发布空白评论哦'});
-    const {code} = await submitTopicComment(t_id,{content:comment});
-    if(code === 200) notification.success({message:'评论成功，活跃度+1'});
-    else notification.error({message:'评论时出错！'});
+    if (!access.canComment()) {
+      notification.error({
+        message: '您暂时没有权限评论与回复，请联系管理员'
+      })
+    } else {
+      if (comment === '') notification.error({ message: '不能发布空白评论哦' });
+      const { code } = await submitTopicComment(t_id, { content: comment });
+      if (code === 200) notification.success({ message: '评论成功，活跃度+1' });
+      else notification.error({ message: '评论时出错！' });
+    }
+
   }
-  const sendReply = async (commentId:number) => {
-    
-    if(reply === '') notification.error({message:'不能回复空白信息哦'});
-    const {code} = await submitTopicReply(t_id,{content:reply,parent_id:commentId});
-    if(code === 200) notification.success({message:'回复成功，活跃度+1'});
-    else notification.error({message:'回复时出错！'});
+  const sendReply = async (commentId: number) => {
+    if (!access.canComment()) {
+      notification.error({
+        message: '您暂时没有权限评论与回复，请联系管理员'
+      })
+    } else {
+      if (reply === '') notification.error({ message: '不能回复空白信息哦' });
+      const { code } = await submitTopicReply(t_id, { content: reply, parent_id: commentId });
+      if (code === 200) notification.success({ message: '回复成功，活跃度+1' });
+      else notification.error({ message: '回复时出错！' });
+    }
   }
-  const openReplyModal = (commentId:number)=>{
+  const openReplyModal = (commentId: number) => {
     setModalControl(commentId);
   }
-  const cancelReplyModal = ()=>{
+  const cancelReplyModal = () => {
     setModalControl(-1);
   }
   return (
@@ -94,8 +108,8 @@ export default () => {
           shape="square"
           size="large"
           src={`http://www.wusi.fun/media/${authorAvatar}`}
-          onClick={()=>{history.push(`/userinfo/${topicData?.author}`)}} 
-          style={{cursor:'pointer'}}
+          onClick={() => { history.push(`/userinfo/${topicData?.author}`) }}
+          style={{ cursor: 'pointer' }}
         />
         <span className={styles.authorName}>{topicData?.author}</span>
         <span className={styles.publishTime}><FieldTimeOutlined />{topicData?.created_time}</span>
@@ -133,7 +147,7 @@ export default () => {
                     <span className={styles.puber}>{item.publisher}:</span>
                     <span className={styles.content}>{item.content}</span>
                     <span className={styles.time}>@{item.created_time}</span>
-                    <span className={styles.replyBtn} onClick={()=>{openReplyModal(item.id)}}>回复</span>
+                    <span className={styles.replyBtn} onClick={() => { openReplyModal(item.id) }}>回复</span>
                   </p>
                   {
                     item.reply.map((reply, index) => {
@@ -160,8 +174,8 @@ export default () => {
                     (modalControll === item.id) && (
                       <div className={styles.commitInput}>
                         <Input className={styles.innerInput} onChange={(e) => setReply(e.target.value)} placeholder='在这里进行回复'></Input>
-                        <Button className={styles.innerBtn} type="primary" onClick={()=>{sendReply(item.id)}}>回复</Button>
-                        <CloseOutlined  style={{opacity:0.6,cursor:'pointer'}} onClick={cancelReplyModal}/>
+                        <Button className={styles.innerBtn} type="primary" onClick={() => { sendReply(item.id) }}>回复</Button>
+                        <CloseOutlined style={{ opacity: 0.6, cursor: 'pointer' }} onClick={cancelReplyModal} />
                       </div>
                     )
                   }

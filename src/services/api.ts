@@ -33,17 +33,11 @@ export const uploadAvatar = (formdata: FormData, username: string) => {
 export const loginHandler = (params: {
   username: string,
   password: string,
-  role:string
+  role: string
 }) => {
   return request<API.LoginData>('/tokens', {
     method: 'POST',
     data: { ...params },
-  })
-}
-
-export const getUserPermissions = (userName:string) =>{
-  return request<API.userPermissions>(`/permission?userName=${userName}`,{
-    method:'GET'
   })
 }
 
@@ -134,21 +128,47 @@ export const updateTopic = (data: {
   blogUsername: string,
   t_id: string
 ) => {
-  return request<{code:number}>(`/topics/${blogUsername}?t_id=${t_id}`,{
-    method:'PUT',
-    data:data
+  return request<{ code: number }>(`/topics/${blogUsername}?t_id=${t_id}`, {
+    method: 'PUT',
+    data: data
   })
 }
 
-export const updateTopicPhotos = (data: FormData, username: string,t_id:string) => {
+export const updateTopicPhotos = (data: FormData, username: string, t_id: string) => {
   return request<{ code: number }>(`/topicPhotos/${username}?t_id=${t_id}`, {
     method: 'POST',
     data: data
   })
 }
 
-export const deleteTopic = (username:string,t_id:string)=>{
-  return request<{code:number}>(`/topics/${username}?t_id=${t_id}`,{
-    method:'DELETE'
+export const deleteTopic = (username: string, t_id: string) => {
+  return request<{ code: number }>(`/topics/${username}?t_id=${t_id}`, {
+    method: 'DELETE'
+  })
+}
+
+export const addUserPermission = (params:{userName:string,roleCode:string})=>{
+  return request<{code:number}>('/permission',{
+    method:'POST',
+    data:params
+  })
+}
+
+export const deleteUserPermission = (params:{userName:string,roleCode:string})=>{
+  return request<{code:number}>('/permission',{
+    method:'DELETE',
+    data:params
+  })
+}
+//路由权限控制
+export const getUserPermissions = (userName: string) => {
+  return request<API.userPermissions>(`/permission?userName=${userName}`, {
+    method: 'GET'
+  })
+}
+//管理员
+export const getAllUserPermissions = (pageIndex:number) => {
+  return request<API.allUserPerm>(`/permission?page=${pageIndex}`,{
+    method:'GET'
   })
 }

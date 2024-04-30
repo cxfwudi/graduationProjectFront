@@ -28,6 +28,11 @@ export default [
     menuRender: false
   },
   {
+    path:'/manage',
+    component:'Manage',
+    name:'权限管理'
+  },
+  {
     path: '/login',
     component: 'Login',
     layout: false,  //关闭整体布局
