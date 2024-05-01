@@ -29,7 +29,7 @@ export default () => {
         localStorage.setItem('userRole',data.role)
         localStorage.setItem('blog_has_login', 'has');
         localStorage.setItem('userPerm',userPerm.toString());
-        await setInitialState((s) => {
+        await setInitialState((s:any) => {
           return {
             ...s,
             username,

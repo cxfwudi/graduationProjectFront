@@ -35,3 +35,23 @@
   position: relative;
   bottom: 0;
 }
+.container .userManageCard .permList {
+  margin-top: 1.5vh;
+}
+.container .userManageCard .permList .collapseHeaderContainer span {
+  margin-left: 0.5vw;
+  font-weight: bold;
+}
+.container .userManageCard .permListItem .hasPerm {
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+.container .userManageCard .permListItem .hasPerm .itemTag {
+  margin: 0 0.5vw;
+}
+.container .userManageCard .permListItem .nohasPerm {
+  font-weight: bold;
+}
+.container .userManageCard .permListItem .nohasPerm .itemTag {
+  margin: 0 0.5vw;
+}

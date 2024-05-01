@@ -30,7 +30,8 @@ export default [
   {
     path:'/manage',
     component:'Manage',
-    name:'权限管理'
+    name:'权限管理',
+    access:'isManager'
   },
   {
     path: '/login',

@@ -1,12 +1,14 @@
-.container{
+.container {
   width: 60vw;
   margin: 0 auto;
   min-height: 93vh;
+
   img {
     width: 60vw;
     height: 20vh;
     display: block;
   }
+
   .filterText {
     margin: 1vh 0 1vh 0;
 
@@ -21,18 +23,51 @@
       display: block;
     }
   }
-  .userManageCard{
+
+  .userManageCard {
     width: 100%;
     min-height: 60vh;
     margin-top: 1.5vh;
-    .cardText{
+
+    .cardText {
       font-weight: bold;
       padding-right: 0.5vw;
       font-size: 1rem;
     }
+
     .fenpian {
       position: relative;
       bottom: 0;
+    }
+
+    .permList {
+      margin-top: 1.5vh;
+
+      .collapseHeaderContainer {
+        span {
+          margin-left: .5vw;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .permListItem {
+      .hasPerm {
+        font-weight: bold;
+        margin-bottom: 1vh;
+
+        .itemTag {
+          margin: 0 .5vw;
+        }
+      }
+
+      .nohasPerm {
+        font-weight: bold;
+
+        .itemTag {
+          margin: 0 .5vw;
+        }
+      }
     }
   }
 }

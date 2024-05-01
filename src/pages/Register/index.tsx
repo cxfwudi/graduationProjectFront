@@ -15,7 +15,7 @@ export default () => {
   const [pwd_2, setPwd_2] = useState('');
   const { initialState, setInitialState } = useModel('@@initialState');
   const loginHandler = async () => {
-    const { code, username, data } = await fetchRegister({ username: account, phone,email,password_1: pwd_1,password_2:pwd_2,identifying:'' });
+    const { code, username, data } = await fetchRegister({ username: account, phone,email,password_1: pwd_1,password_2:pwd_2,identifying:'0' });
     
     if (code === 200) {
       notification.success({

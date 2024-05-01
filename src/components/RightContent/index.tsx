@@ -90,7 +90,7 @@ export default () => {
     <Dropdown menu={{ items }}>
       <a onClick={(e) => e.preventDefault()}>
         <Space>
-          <Avatar size={36} src={`http://www.wusi.fun/media/${avatarUrl}`} />
+          <Avatar size={36} src={`http://127.0.0.1:8000/media//${avatarUrl}`} />
           <DownOutlined className={styles.moreOper} />
         </Space>
       </a>

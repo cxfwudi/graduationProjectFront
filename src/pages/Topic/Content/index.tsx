@@ -107,7 +107,7 @@ export default () => {
         <Avatar
           shape="square"
           size="large"
-          src={`http://www.wusi.fun/media/${authorAvatar}`}
+          src={`http://127.0.0.1:8000/media/${authorAvatar}`}
           onClick={() => { history.push(`/userinfo/${topicData?.author}`) }}
           style={{ cursor: 'pointer' }}
         />
@@ -118,7 +118,7 @@ export default () => {
         {
           topicData?.topic_photos.map((item, index) => {
             return (
-              <img key={index} src={`http://www.wusi.fun/media/${item.content}`} alt="topicPhoto" />
+              <img key={index} src={`http://127.0.0.1:8000/media/${item.content}`} alt="topicPhoto" />
             )
           })
         }
@@ -142,7 +142,7 @@ export default () => {
                   <p className={styles.comment}>
                     <Avatar shape="circle"
                       size="large"
-                      src={`http://www.wusi.fun/media/${unicodeToStr(item.publisher_avatar)}`}
+                      src={`http://127.0.0.1:8000/media/${unicodeToStr(item.publisher_avatar)}`}
                     />
                     <span className={styles.puber}>{item.publisher}:</span>
                     <span className={styles.content}>{item.content}</span>
@@ -155,7 +155,7 @@ export default () => {
                         <p className={styles.reply} key={index}>
                           <Avatar shape="circle"
                             size="small"
-                            src={`http://www.wusi.fun/media/${unicodeToStr(reply.publisher_avatar)}`}
+                            src={`http://127.0.0.1:8000/media/${unicodeToStr(reply.publisher_avatar)}`}
                           />
                           <span>
                             <span className={styles.puber}>{reply.publisher}</span>

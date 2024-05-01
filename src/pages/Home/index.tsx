@@ -37,7 +37,8 @@ export default () => {
   }
 
   useEffect(() => {
-    if (initialState?.hasLogin === 'no-has' || localStorage.getItem('blog_has_login') != 'has' || initialState == undefined) history.push('/login');
+    if (localStorage.getItem('blog_has_login') != 'has') history.push('/login');  
+    //if(initialState.hasLogin!='has') history.push('/login'); 加上这句话会导致登录登录两次才能成功
     const fetchRandomsTopics = async () => {
       const { data } = await randomTopics();
       const { topics } = data;
@@ -134,7 +135,7 @@ export default () => {
                       cover={
                         <img
                           alt="example"
-                          src={`http://www.wusi.fun/media/${item.photos[0]}`}
+                          src={`http://127.0.0.1:8000/media/${item.photos[0]}`}
                           className={styles.card_img}
                         />
                       }
@@ -144,7 +145,7 @@ export default () => {
                         description={item.introduce}
                         avatar={
                           <Avatar
-                            src={`http://www.wusi.fun/media/${unicodeToStr(item.author_avatar)}`}
+                            src={`http://127.0.0.1:8000/media/${unicodeToStr(item.author_avatar)}`}
                             onClick={() => { history.push(`/userinfo/${item.author}`) }}
                             style={{ cursor: 'pointer' }}
                           />

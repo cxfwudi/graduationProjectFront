@@ -148,14 +148,14 @@ export const deleteTopic = (username: string, t_id: string) => {
 }
 
 export const addUserPermission = (params:{userName:string,roleCode:string})=>{
-  return request<{code:number}>('/permission',{
+  return request<{code:number}>('/permission/',{
     method:'POST',
     data:params
   })
 }
 
 export const deleteUserPermission = (params:{userName:string,roleCode:string})=>{
-  return request<{code:number}>('/permission',{
+  return request<{code:number}>('/permission/',{
     method:'DELETE',
     data:params
   })

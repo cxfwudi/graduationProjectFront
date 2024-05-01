@@ -143,7 +143,7 @@ export default () => {
         </Title>
         <div className={styles.avatarContainer}>
           <div className={styles.avatarImg}>
-            <Avatar size={100} shape='square' src={`http://www.wusi.fun/media/${avatar}`} />
+            <Avatar size={100} shape='square' src={`http://127.0.0.1:8000/media/${avatar}`} />
           </div>
           <div className={styles.avatarUplodaBtn}>
             <label htmlFor="fileinp" className={styles.avatarLabel}>
@@ -180,7 +180,7 @@ export default () => {
               return (
                 <div className={styles.topicImg} key={index}>
                   <img src=
-                    {item.photos[0] ? `http://www.wusi.fun/media/${item.photos[0]}`
+                    {item.photos[0] ? `http://127.0.0.1:8000/media//${item.photos[0]}`
                       : require('@/assets/no-img.jpg')
                     } alt="文章图片"
                     onClick={()=>{gotoTopicDetail(item.author,item.id)}}

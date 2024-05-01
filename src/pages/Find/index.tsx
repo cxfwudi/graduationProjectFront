@@ -88,12 +88,12 @@ export default () => {
         className={styles.card}
         hoverable
         style={{ width: 320 }}
-        cover={<img src={`http://www.wusi.fun/media/${item.photos[0]}`} alt="" />}
+        cover={<img src={`http://127.0.0.1:8000/media/${item.photos[0]}`} alt="" />}
       >
         <Meta
           title={topicTitle(item.title, item.author, String(item.id))}
           description={item.introduce}
-          avatar={<Avatar src={`http://www.wusi.fun/media/${unicodeToStr(item.author_avatar)}`} onClick={() => { history.push(`/userinfo/${item.author}`) }} />}
+          avatar={<Avatar src={`http://127.0.0.1:8000/media/${unicodeToStr(item.author_avatar)}`} onClick={() => { history.push(`/userinfo/${item.author}`) }} />}
         />
         <span className={styles.author}>{item.author}</span>
 
