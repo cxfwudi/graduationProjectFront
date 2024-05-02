@@ -7,11 +7,40 @@
     margin-left: 20px;
     margin-top: 10px;
     font-size: 1.5vw;
+    width: 58vw;
+    position: relative;
     .authorName{
       padding: 0 5px 0 5px;
     }
     .publishTime{
       font-size: 0.5vw;
+    }
+    .likeAndStar{
+      display: inline-block;
+      position: absolute;
+      top:.8vh;
+      right: 0;
+      .like{
+        padding-right: 1vw;
+        .hasLike{
+          font-size: 1.8rem;
+          cursor: pointer;
+        }
+        .noLike{
+          font-size: 1.8rem;
+          cursor: pointer;
+        }
+      }
+      .star{
+        .hasStar{
+          font-size: 1.8rem;
+          cursor: pointer;
+        }
+        .noStar{
+          font-size: 1.8rem;
+          cursor: pointer;
+        }
+      }
     }
   }
   .topicContent{

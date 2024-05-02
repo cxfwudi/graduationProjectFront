@@ -172,3 +172,25 @@ export const getAllUserPermissions = (pageIndex:number) => {
     method:'GET'
   })
 }
+
+//点赞收藏通用请求函数
+//验证文章是否被收藏
+export const queryFavoriteOrCollect = (tp:string,userName:string,topicId:number)=>{
+  return request<{code:number,data:number}>(`/${tp}?userName=${userName}&topicId=${topicId}`,{
+    method:'GET'
+  })
+}
+//收藏文章
+export const collectOrLikeTopic = (tp:string,params:{userName:string,topicId:number})=>{
+  return request<{code:number}>(`/${tp}/`,{
+    method:'POST',
+    data:params
+  })
+}
+//取消收藏
+export const CancelCollectOrLikeTopic = (tp:string,params:{userName:string,topicId:number})=>{
+  return request<{code:number}>(`/${tp}/`,{
+    method:'DELETE',
+    data:params
+  })
+}

@@ -8,12 +8,39 @@
   margin-left: 20px;
   margin-top: 10px;
   font-size: 1.5vw;
+  width: 58vw;
+  position: relative;
 }
 .container .topicMsg .authorName {
   padding: 0 5px 0 5px;
 }
 .container .topicMsg .publishTime {
   font-size: 0.5vw;
+}
+.container .topicMsg .likeAndStar {
+  display: inline-block;
+  position: absolute;
+  top: 0.8vh;
+  right: 0;
+}
+.container .topicMsg .likeAndStar .like {
+  padding-right: 1vw;
+}
+.container .topicMsg .likeAndStar .like .hasLike {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.container .topicMsg .likeAndStar .like .noLike {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.container .topicMsg .likeAndStar .star .hasStar {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.container .topicMsg .likeAndStar .star .noStar {
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 .container .topicContent {
   margin: 4vh 0 4vh 1vw;

@@ -1,8 +1,18 @@
 import { Button, Avatar, Modal, Upload, Cascader, Input, notification } from 'antd';
 import { useState, useEffect, useRef } from 'react';
 import { useModel, useLocation } from "@umijs/max";
-import { UserOutlined, FieldTimeOutlined, CloseOutlined } from '@ant-design/icons';
-import { getTopicDetail, currentUser as getAuthorAvatar, submitTopicComment, submitTopicReply } from '@/services/api';
+// <StarTwoTone /> <LikeTwoTone />
+import { UserOutlined, FieldTimeOutlined, CloseOutlined, LikeOutlined, StarOutlined, StarTwoTone, LikeTwoTone } from '@ant-design/icons';
+import {
+  getTopicDetail,
+  currentUser as getAuthorAvatar,
+  submitTopicComment,
+  submitTopicReply,
+  queryFavoriteOrCollect,
+  collectOrLikeTopic,
+  CancelCollectOrLikeTopic
+}
+  from '@/services/api';
 import { unicodeToStr } from '@/utils';
 import { history } from '@umijs/max';
 import styles from './index.less';
@@ -55,19 +65,87 @@ export default () => {
   const [reply, setReply] = useState('');
   const [modalControll, setModalControl] = useState<number>(-1)
   const access = useAccess();
-  const t_id: string = location.pathname.split('/')[3];
-  const username: string = location.pathname.split('/')[2];
-  useEffect(() => {
-    const fetchTopicInfo = async () => {
-      if (initialState?.username) {
-        const { code, data } = await getTopicDetail(username, t_id);
-        setTopicData(data);
-        if (code === 200) {
-          const { data } = await getAuthorAvatar(username);
-          setAuthorAvatar(unicodeToStr(data.avatar))
-        }
+  const t_id: string = location.pathname.split('/')[3];  //文章id
+  const username: string = location.pathname.split('/')[2];  //文章发布者
+  const [isLike, setIsLike] = useState(false);
+  const [isStar, setIsStar] = useState(false);
+
+  const verifyLikeOrStar = async () => {
+    if (initialState?.username) {
+      const likeRes = await queryFavoriteOrCollect('favorite', initialState?.username, parseInt(t_id));
+      if (likeRes.code === 200 && likeRes.data === 1) {
+        setIsLike(true)
+      }
+      const starRes = await queryFavoriteOrCollect('collect', initialState?.username, parseInt(t_id));
+      if (starRes.code === 200 && starRes.data === 1) {
+        setIsStar(true)
+      }
+    } else {
+      notification.error({
+        message: '用户初始化信息有问题'
+      })
+    }
+  }
+
+  const fetchTopicInfo = async () => {
+    if (initialState?.username) {
+      const { code, data } = await getTopicDetail(username, t_id);
+      setTopicData(data);
+      if (code === 200) {
+        const { data } = await getAuthorAvatar(username);
+        setAuthorAvatar(unicodeToStr(data.avatar))
       }
     }
+  }
+
+  const giveALike = async () => {
+    if (initialState?.username) {
+      const { code } = await collectOrLikeTopic('favorite', { userName: initialState?.username, topicId: parseInt(t_id) })
+      if (code === 200) setIsLike(true)
+    } else {
+      notification.error({
+        message: '用户初始化信息有问题'
+      })
+    }
+
+  }
+
+  const cancelALike = async () => {
+    if (initialState?.username) {
+      const { code } = await CancelCollectOrLikeTopic('favorite', { userName: initialState?.username, topicId: parseInt(t_id) })
+      if (code === 200) setIsLike(false)
+    } else {
+      notification.error({
+        message: '用户初始化信息有问题'
+      })
+    }
+  }
+
+  const giveAStar = async () => {
+    if (initialState?.username) {
+      const { code } = await collectOrLikeTopic('collect', { userName: initialState?.username, topicId: parseInt(t_id) })
+      if (code === 200) setIsStar(true)
+    } else {
+      notification.error({
+        message: '用户初始化信息有问题'
+      })
+    }
+  }
+
+  const cancelAStar = async () => {
+    if (initialState?.username) {
+      const { code } = await CancelCollectOrLikeTopic('collect', { userName: initialState?.username, topicId: parseInt(t_id) })
+      if (code === 200) setIsStar(false)
+    } else {
+      notification.error({
+        message: '用户初始化信息有问题'
+      })
+    }
+  }
+
+
+  useEffect(() => {
+    verifyLikeOrStar();
     fetchTopicInfo();
   }, [])
   const sendCommit = async () => {
@@ -81,7 +159,6 @@ export default () => {
       if (code === 200) notification.success({ message: '评论成功，活跃度+1' });
       else notification.error({ message: '评论时出错！' });
     }
-
   }
   const sendReply = async (commentId: number) => {
     if (!access.canComment()) {
@@ -113,6 +190,17 @@ export default () => {
         />
         <span className={styles.authorName}>{topicData?.author}</span>
         <span className={styles.publishTime}><FieldTimeOutlined />{topicData?.created_time}</span>
+        <span className={styles.likeAndStar}>
+          {
+            isLike ? <span className={styles.like}><LikeTwoTone className={styles.hasLike} onClick={cancelALike} /></span> :
+              <span className={styles.like}><LikeOutlined className={styles.noLike}onClick={giveALike}  /></span>
+          }
+          {
+            isStar ? <span className={styles.star}><StarTwoTone className={styles.hasStar} onClick={cancelAStar} /></span> :
+              <span className={styles.star}><StarOutlined className={styles.noStar} onClick={giveAStar} /></span>
+          }
+
+        </span>
       </div>
       <div className={styles.imgRender}>
         {
