@@ -1,8 +1,7 @@
-import { Button, Avatar, Modal, Upload, Cascader, Input, notification } from 'antd';
+import { Button, Avatar, Input, notification } from 'antd';
 import { useState, useEffect, useRef } from 'react';
 import { useModel, useLocation } from "@umijs/max";
-// <StarTwoTone /> <LikeTwoTone />
-import { UserOutlined, FieldTimeOutlined, CloseOutlined, LikeOutlined, StarOutlined, StarTwoTone, LikeTwoTone } from '@ant-design/icons';
+import { FieldTimeOutlined, CloseOutlined, LikeOutlined, StarOutlined, StarTwoTone, LikeTwoTone } from '@ant-design/icons';
 import {
   getTopicDetail,
   currentUser as getAuthorAvatar,
@@ -156,7 +155,11 @@ export default () => {
     } else {
       if (comment === '') notification.error({ message: '不能发布空白评论哦' });
       const { code } = await submitTopicComment(t_id, { content: comment });
-      if (code === 200) notification.success({ message: '评论成功，活跃度+1' });
+      if (code === 200) {
+        notification.success({ message: '评论成功，活跃度+1' });
+        fetchTopicInfo();
+        setComment('')
+      }
       else notification.error({ message: '评论时出错！' });
     }
   }
@@ -168,7 +171,11 @@ export default () => {
     } else {
       if (reply === '') notification.error({ message: '不能回复空白信息哦' });
       const { code } = await submitTopicReply(t_id, { content: reply, parent_id: commentId });
-      if (code === 200) notification.success({ message: '回复成功，活跃度+1' });
+      if (code === 200){
+        fetchTopicInfo();
+        notification.success({ message: '回复成功，活跃度+1' });
+        setReply('')
+      } 
       else notification.error({ message: '回复时出错！' });
     }
   }
@@ -193,7 +200,7 @@ export default () => {
         <span className={styles.likeAndStar}>
           {
             isLike ? <span className={styles.like}><LikeTwoTone className={styles.hasLike} onClick={cancelALike} /></span> :
-              <span className={styles.like}><LikeOutlined className={styles.noLike}onClick={giveALike}  /></span>
+              <span className={styles.like}><LikeOutlined className={styles.noLike} onClick={giveALike} /></span>
           }
           {
             isStar ? <span className={styles.star}><StarTwoTone className={styles.hasStar} onClick={cancelAStar} /></span> :
@@ -219,7 +226,7 @@ export default () => {
       <div className={styles.line}></div>
       <div className={styles.commentRender}>
         <div className={styles.commitInput}>
-          <Input className={styles.innerInput} onChange={(e) => setComment(e.target.value)} placeholder='在这里发表评论'></Input>
+          <Input className={styles.innerInput} value={comment} onChange={(e) => setComment(e.target.value)} placeholder='在这里发表评论'></Input>
           <Button type="primary" onClick={sendCommit}>评论</Button>
         </div>
         <div className={styles.commontAndReply}>
@@ -261,7 +268,7 @@ export default () => {
                   {
                     (modalControll === item.id) && (
                       <div className={styles.commitInput}>
-                        <Input className={styles.innerInput} onChange={(e) => setReply(e.target.value)} placeholder='在这里进行回复'></Input>
+                        <Input className={styles.innerInput} value={reply} onChange={(e) => setReply(e.target.value)} placeholder='在这里进行回复'></Input>
                         <Button className={styles.innerBtn} type="primary" onClick={() => { sendReply(item.id) }}>回复</Button>
                         <CloseOutlined style={{ opacity: 0.6, cursor: 'pointer' }} onClick={cancelReplyModal} />
                       </div>

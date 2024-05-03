@@ -90,7 +90,7 @@ export const request: RequestConfig = {
 export const layout = () => {
   return {
     rightContentRender:() => <RightContent />,
-    title: '钨丝|个人博客',
+    title: '钨丝|知识仓库',
     logo: logo,
     menu: {
       locale: false,

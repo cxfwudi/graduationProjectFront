@@ -35,45 +35,45 @@ export default () => {
   const location = useLocation();
   const username = location.pathname.split('/')[2];
   const access = useAccess();
-  useEffect(()=>{
-    if(initialState?.hasLogin === 'no-has'){
+  useEffect(() => {
+    if (initialState?.hasLogin === 'no-has') {
       history.push('/404')
     }
-  },[initialState?.hasLogin])
+  }, [initialState?.hasLogin])
   const getUserInfo = async () => {
-      const { data } = await currentUser(username);
-      setAvatar(unicodeToStr(data.avatar));
-      form.setFieldsValue({
-        username: data.nickname,
-        sign: data.sign,
-        email: data.email,
-        introd: data.info
-      })
-      setAccount(data.nickname);
-      setEmail(data.email);
-      setIntrod(data.info);
-      setSign(data.sign);
-    }
-    const fetchListData = async () => {
-      
-        const { data } = await ListTopics(`${pageIndex}`, category, username);
-        setTotalItems(Number(data.total));
-        setDataItems(data.topics);
-    }
+    const { data } = await currentUser(username);
+    setAvatar(unicodeToStr(data.avatar));
+    form.setFieldsValue({
+      username: data.nickname,
+      sign: data.sign,
+      email: data.email,
+      introd: data.info
+    })
+    setAccount(data.nickname);
+    setEmail(data.email);
+    setIntrod(data.info);
+    setSign(data.sign);
+  }
+  const fetchListData = async () => {
+
+    const { data } = await ListTopics(`${pageIndex}`, category, username);
+    setTotalItems(Number(data.total));
+    setDataItems(data.topics);
+  }
   useEffect(() => {
-    
+
     if (initialState?.hasLogin === 'has') {
       getUserInfo();
       fetchListData();
     }
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     if (initialState?.hasLogin === 'has') {
       getUserInfo();
       fetchListData();
     }
-  },[location.pathname])
+  }, [location.pathname])
 
   const updateInfo = async () => {
     if (initialState?.username) {
@@ -127,11 +127,11 @@ export default () => {
   }
   useEffect(() => {
     const fetchListData = async () => {
-      
-        const { data } = await ListTopics(`${pageIndex}`, category, username);
-        setTotalItems(Number(data.total));
-        setDataItems(data.topics);
-      
+
+      const { data } = await ListTopics(`${pageIndex}`, category, username);
+      setTotalItems(Number(data.total));
+      setDataItems(data.topics);
+
     }
     fetchListData();
   }, [pageIndex])
@@ -178,15 +178,18 @@ export default () => {
           {
             dataItems.map((item, index) => {
               return (
-                <div className={styles.topicImg} key={index}>
-                  <img src=
-                    {item.photos[0] ? `http://127.0.0.1:8000/media//${item.photos[0]}`
-                      : require('@/assets/no-img.jpg')
-                    } alt="文章图片"
-                    onClick={()=>{gotoTopicDetail(item.author,item.id)}}
-                  />
-                  <span className={styles.toolTip}>点击查看详细文章</span>
-                </div>
+                <Tooltip title="点击查看文章详情">
+                  <div className={styles.topicImg} key={index}>
+                    <img src=
+                      {item.photos[0] ? `http://127.0.0.1:8000/media//${item.photos[0]}`
+                        : require('@/assets/no-img.jpg')
+                      } alt="文章图片"
+                      onClick={() => { gotoTopicDetail(item.author, item.id) }}
+                    />
+                    {/* <span className={styles.toolTip}>点击查看详细文章</span> */}
+                  </div>
+                </Tooltip>
+
               )
             })
           }

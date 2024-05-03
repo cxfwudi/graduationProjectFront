@@ -1,57 +1,120 @@
+/* src/index.less */
+@font-face {
+  font-family: 'Victor Mono';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/victormono/v3/Yq6H-LGQWyfv-LGy7lEO09xRn-T81AVB_tCyO8_NhA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Victor Mono';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/victormono/v3/Yq6H-LGQWyfv-LGy7lEO09xRn-T81AVB_tCyO8_NhA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/zhimangxing/v17/f0Xw0ey79sErYFtWQ9a2rq-g0ac.ttf) format('truetype');
+}
 .container {
-  width: 60vw;
-  margin: 0 auto;
-  min-height: 93vh;
+  background-image: url(../../assets/bg/bg_login.png);
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
 }
-.container img {
-  width: 60vw;
-  height: 20vh;
-  display: block;
+.container .topicRender {
+  width: 50%;
 }
-.container .filterText {
-  margin: 1vh 0 1vh 0;
-}
-.container .filterText .articleListText {
-  color: white;
-  background-color: black;
-  width: 8vw;
-  height: 4vh;
-  line-height: 4vh;
-  text-align: center;
-  font-weight: bold;
-  display: block;
-}
-.container .userManageCard {
-  width: 100%;
-  min-height: 60vh;
-  margin-top: 1.5vh;
-}
-.container .userManageCard .cardText {
-  font-weight: bold;
-  padding-right: 0.5vw;
-  font-size: 1rem;
-}
-.container .userManageCard .fenpian {
+.container .topicRender .topicList .topicImg {
+  width: 50%;
+  height: 30vh;
+  padding: 1vh 1vw 1vh 1vw;
+  display: inline;
   position: relative;
-  bottom: 0;
 }
-.container .userManageCard .permList {
-  margin-top: 1.5vh;
+.container .topicRender .topicList .topicImg img {
+  width: 45%;
+  height: 30vh;
+  cursor: pointer;
 }
-.container .userManageCard .permList .collapseHeaderContainer span {
-  margin-left: 0.5vw;
-  font-weight: bold;
+.container .topicRender .topicList .topicImg .toolTip {
+  visibility: hidden;
+  background-color: #0d0d0d;
+  position: absolute;
+  right: 60%;
+  top: 50%;
+  color: aliceblue;
+  padding: 2px;
+  font-size: 0.8vw;
 }
-.container .userManageCard .permListItem .hasPerm {
-  font-weight: bold;
-  margin-bottom: 1vh;
+.container .topicRender .topicList .topicImg img:hover {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  /* 添加渐变过渡效果 */
 }
-.container .userManageCard .permListItem .hasPerm .itemTag {
-  margin: 0 0.5vw;
+.container .topicRender .topicList .topicImg:hover .toolTip {
+  visibility: visible;
 }
-.container .userManageCard .permListItem .nohasPerm {
-  font-weight: bold;
+.container .loginCard {
+  margin-top: 1vh;
+  height: 60%;
+  width: 50%;
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.container .userManageCard .permListItem .nohasPerm .itemTag {
-  margin: 0 0.5vw;
+.container .loginCard .avatarLabel {
+  position: relative;
+}
+.container .loginCard .updateBtn {
+  display: block;
+}
+.container .loginCard .upload {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.container .loginCard .bottomText {
+  font-family: 'Victor Mono', monospace;
+  font-family: 'Zhi Mang Xing', cursive;
+  font-size: large;
+  color: #0c27ad;
+  float: right;
+  position: relative;
+  left: 18vw;
+}
+.container .loginCard .loginTitle {
+  text-align: center;
+  margin-bottom: 24px;
+  font-family: 'Victor Mono', monospace;
+}
+.container .loginCard .loginTitle img {
+  width: 3vw;
+}
+.container .loginCard .avatarContainer {
+  position: relative;
+  top: 5vh;
+}
+.container .loginCard .avatarContainer .avatarUplodaBtn {
+  padding-top: 1vh;
+}
+.container .loginCard .loginForm {
+  position: relative;
+  right: 5vw;
+  bottom: 10vh;
+}
+.container .loginCard .loginForm :global .ant-form-item {
+  width: 51%;
+  float: right;
+}
+.container .loginCard .loginForm :global .ant-form-item .ant-row .ant-col .ant-form-item-control-input .ant-form-item-control-input-content button {
+  float: right;
 }
